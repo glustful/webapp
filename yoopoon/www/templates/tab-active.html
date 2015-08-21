@@ -1,0 +1,45 @@
+<ion-view view-title="活动页">
+  <ion-content class="padding">
+       <ion-refresher pulling-text="下拉刷新" on-refresh="vm.doRefresh()"></ion-refresher>
+    <div class="message">
+        <ul>
+            <li class="brand" ng-repeat="item in brandList">
+               
+                <a href="#/app/BrandDetail?brandId={{item.Id}}">
+                    <img src="{{ImgUrl+item.Bimg}}@620w_160h_70Q" width="100%" height="160"/>
+                    
+                    <div class="summary">
+                        <span>[{{ item.ProductParamater["所属城市"] }}]</span><span>{{item.Bname}}</span></span><span>{{item.ProductParamater["占地面积"] }}</span>
+                    </div>
+                    <div class="summaryBg"></div>
+                    <div class="depreciate">
+                        <p ng-bind-html="item.AdTitle|adtitle"></p>
+                    </div>
+                    <div class="depreciateBg"></div>
+                </a>
+                
+                <h3>{{item.SubTitle}}</h3>
+                
+                <div class="nav">
+                    <span class="orange">
+                        <a href="tel:{{item.ProductParamater['来电咨询']}}">
+                            来电咨询:{{item.ProductParamater["来电咨询"]}}
+                        </a>
+                    </span>
+                    <span class="brokerage">
+                        <a href="#">最高享用优惠：{{item.ProductParamater["最高优惠"]}}元/套</a>
+                    </span>
+                </div>
+                            </li>
+            
+            
+                    </ul>
+    </div>
+    <!-- ion-infinite-scroll 上拉加载数据指令 distance默认1% nf-if的值为false时，就禁止执行on-infinite  -->
+    <ion-infinite-scroll ng-if="!vm.moredata" on-infinite="vm.loadMore()" distance="1%" ></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
+
+<!--1.　on-refresh 下拉触发的函数 函数执行结束之前必须广播下该事件结束 $scope.$broadcast(‘scroll.refreshComplete‘);-->
+<!---->
+<!--　2.　on-infinite 上拉触发的函数 同样需要广播事件结束 $scope.$broadcast(‘scroll.infiniteScrollComplete‘);-->
